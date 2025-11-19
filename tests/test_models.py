@@ -1,9 +1,9 @@
 """Unit tests for the canonical BaseModel and TimeSeries classes."""
+
 from __future__ import annotations
 
 import numpy as np
 import pytest
-
 from microlens_utils.models import BaseModel, TimeSeries
 
 

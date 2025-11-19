@@ -1,4 +1,5 @@
 """Sphinx configuration for microlens-utils."""
+
 from __future__ import annotations
 
 import sys
@@ -19,9 +20,7 @@ def _get_version() -> str:
 
 project = "microlens-utils"
 author = "Amber Malpas"
-copyright = (
-    f"{datetime.now():%Y}, {author}"
-)  # noqa: A003 - sphinx expects the name "copyright"
+copyright = f"{datetime.now():%Y}, {author}"  # noqa: A003 - sphinx expects the name "copyright"
 version = release = _get_version()
 
 extensions = [

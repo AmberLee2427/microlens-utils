@@ -62,7 +62,7 @@ CI is run on GitHub for all contributions to main and pushes to any branch.
 ## Code style & linting
 - Follow existing project style and patterns.
 - Use numpydoc style docstrings for all user facing functions.
-- Run automatic formatter `gruff` as configured.
+- Run `scripts/lint.sh` (Ruff format + lint) before pushing.
 - Keep changes minimal and consistent.
 
 ## Documentation

@@ -17,7 +17,7 @@ Version 0.1.0
 
 Version 0.1.1
 
-- [ ] Style checks with `Ruff`.
+- [x] Style checks with `Ruff`.
 
 Version 0.2.0
 

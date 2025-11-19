@@ -1,9 +1,10 @@
 """Bagle adapter stub."""
+
 from __future__ import annotations
 
 from typing import Any, Mapping, Optional
 
-from microlens_utils.adapters.base import AdapterError, BaseAdapter
+from microlens_utils.adapters.base import BaseAdapter
 from microlens_utils.models import BaseModel
 
 

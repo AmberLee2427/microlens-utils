@@ -1,4 +1,5 @@
 """Command-line interface for microlens-utils."""
+
 from __future__ import annotations
 
 import argparse

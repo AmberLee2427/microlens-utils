@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "microlens-utils"
-version = "0.1.0"
+version = "0.1.1"
 description = "Utility functions and tools for microlensing analysis."
 readme = "README.md"
 requires-python = ">=3.10"
@@ -51,6 +51,11 @@ testpaths = ["tests"]
 [tool.ruff]
 src = ["microlens_utils", "tests"]
 line-length = 100
+target-version = "py310"
+extend-exclude = [
+    "docs/**/*.ipynb",
+    "docs/_build",
+]
 
 [tool.ruff.lint]
 select = ["E", "F", "W", "I"]

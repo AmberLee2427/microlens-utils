@@ -1,4 +1,5 @@
 """Vector utilities adapted from BAGLE's `frame_convert.py`."""
+
 from __future__ import annotations
 
 from typing import Tuple
@@ -192,7 +193,9 @@ def convert_u0vec_t0(
     tuple
         ``(t0_out, u0_vector_out)`` where the vector is ``[E, N]`` in theta_E units.
     """
-    par_vec = parallax_vector(ra, dec, np.array([t0par])).reshape(2,)
+    par_vec = parallax_vector(ra, dec, np.array([t0par])).reshape(
+        2,
+    )
     u0vec_in = np.abs(u0_in) * np.array([u0hatE_in, u0hatN_in])
     tauhat_out = np.array([tauhatE_out, tauhatN_out])
     tauhat_in_vec = np.array([tauhatE_in, tauhatN_in])

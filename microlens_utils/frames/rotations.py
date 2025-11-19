@@ -1,4 +1,5 @@
 """Rotation utilities."""
+
 from __future__ import annotations
 
 import math
@@ -33,7 +34,9 @@ def rotation_xy_to_ne(
 ) -> Tuple[np.ndarray, Dict[str, float]]:
     """Map lens-frame (x, y) offsets to observer-frame (North, East)."""
     if not (np.isfinite(mu_rel_E) and np.isfinite(mu_rel_N)):
-        raise RuntimeError("Relative proper motion components must be finite for rotation diagnostic.")
+        raise RuntimeError(
+            "Relative proper motion components must be finite for rotation diagnostic."
+        )
     if mu_rel_E == 0.0 and mu_rel_N == 0.0:
         raise RuntimeError("Relative proper motion vector is zero; cannot define along-track axis.")
     if not np.isfinite(alpha_deg):
@@ -53,9 +56,9 @@ def rotation_xy_to_ne(
     phi_mu = math.degrees(math.atan2(mu_rel_E, mu_rel_N))
     phi_est = math.degrees(math.atan2(R[0, 1], R[0, 0]))
     diag = {
-        'phi_mu_deg': float(phi_mu),
-        'alpha_deg': float(alpha_deg),
-        'phi_est_deg': float(phi_est),
+        "phi_mu_deg": float(phi_mu),
+        "alpha_deg": float(alpha_deg),
+        "phi_est_deg": float(phi_est),
     }
     return R, diag
 
@@ -69,4 +72,3 @@ def rotation_ne_to_xy(
     """Return the inverse rotation mapping observer-frame (N, E) offsets to lens-frame (x, y)."""
     R_xy_ne, diag = rotation_xy_to_ne(mu_rel_E, mu_rel_N, alpha_deg, sgn)
     return np.linalg.inv(R_xy_ne), diag
-

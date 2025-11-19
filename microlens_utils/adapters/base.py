@@ -1,4 +1,5 @@
 """Base adapter contracts and helpers."""
+
 from __future__ import annotations
 
 from abc import ABC, abstractmethod

@@ -1,8 +1,8 @@
 """Regression tests for projection utilities."""
+
 from __future__ import annotations
 
 import numpy as np
-
 from microlens_utils.frames import (
     convert_helio_geo_phot,
     geocentric_to_heliocentric_piE,

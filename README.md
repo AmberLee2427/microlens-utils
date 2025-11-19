@@ -95,7 +95,13 @@ python -m pytest tests/test_rotations.py -k rotations
 
 Note: some adapters depend on external binaries (VBMicrolensing, BAGLE). Those tests are marked and skipped unless the corresponding environment variables are set.
 
-Run `ruff check .` for style/linting.
+## Development tooling
+
+Run `scripts/lint.sh` to execute Ruff's formatter check and lint pass across the tree:
+
+```bash
+scripts/lint.sh
+```
 
 ## Documentation
 

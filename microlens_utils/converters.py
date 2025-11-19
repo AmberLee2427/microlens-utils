@@ -1,4 +1,5 @@
 """Utilities to move between package-specific adapters via the canonical model."""
+
 from __future__ import annotations
 
 from dataclasses import dataclass
