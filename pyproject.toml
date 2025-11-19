@@ -21,13 +21,41 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-dev = [
+adapters = [
     "VBMicrolensing",
     "MulensModel",
     "BAGLE",
     "joblib",
 ]
+dev = [
+    "pytest>=7.4",
+    "ruff>=0.4",
+]
+docs = [
+    "sphinx>=7.2",
+    "myst-parser>=2.0",
+    "sphinx-rtd-theme>=1.3",
+]
+
+[project.scripts]
+microlens-utils = "microlens_utils.cli:main"
 
 [project.urls]
 Homepage = "https://example.org/microlens-utils"
 Repository = "https://example.org/microlens-utils.git"
+
+[tool.pytest.ini_options]
+addopts = "-ra"
+testpaths = ["tests"]
+
+[tool.ruff]
+src = ["microlens_utils", "tests"]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
+ignore = ["E203", "E266", "E501"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"

@@ -15,14 +15,14 @@ t0_gulls = gulls_model.t0
 mu_rel_icrs = gulls_model.mu_rel(coords="icrs", projection="heliocentric")
 ```
 
-Every transformation is deterministic, frame-aware, and fail-fast—if a parameter can’t be mapped, the converter raises instead of guessing.
+Every transformation is deterministic, frame-aware, and fail-fast—if a parameter can’t be mapped, the converter ALWAYS raises instead of guessing.
 
 ## Features
 
 - **Adapters with a common contract** – each supported package subclasses `BaseAdapter` and knows how to `load()` its native files into a `BaseModel` and `dump()` back out.
 - **Frame-aware accessors** – model properties (e.g., `mu_rel`, `source_traj`, `centroid`) require explicit `coords`, `projection`, `rest`, and `origin` arguments whenever the frame matters. No implicit defaults.
 - **Rotation + projection utilities** – reusable NE↔lens and sky↔observer transforms that match the VBMicrolensing/GULLS/BAGLE conventions.
-- **CLI + Python API** – run `microlens-utils convert --from gulls --to bagle …` from the shell or use the Python API for fine-grained conversions inside notebooks/tests.
+- **Python-first API** – provide parameter dictionaries directly to `converter(...)`; adapters and frame transforms run strictly in Python (no mandatory file IO or CLI usage).
 - **Strict validation** – adapters enforce unit, frame, and metadata checks; missing values or inconsistent reference frames raise immediately.
 
 ## Quickstart
@@ -35,18 +35,8 @@ cd microlens-utils
 pip install --editable .
 ```
 
-Python 3.10+ is required. The package has no optional dependencies beyond NumPy/astropy/Pydantic.
-
-### CLI example
-
-```bash
-microlens-utils convert \
-  --from gulls \
-  --to bagle \
-  --input smoke_std_0_0_0.all.lc \
-  --observer roman_l2 \
-  --output smoke_std_0_0_0.bagle.json
-```
+Python 3.10+ is required. Install with `pip install -e .[dev,docs]` if you plan to run
+tests, style checks, or build the documentation locally.
 
 ### Python example
 
@@ -68,6 +58,8 @@ sky_track = bagle_model.source_traj(
     origin="lens1@t0",
 )
 ```
+
+See `docs/DESIGN.md` for deeper detail on the types below.
 
 ## Concepts
 
@@ -99,6 +91,16 @@ python -m pytest tests/test_rotations.py -k rotations
 
 Note: some adapters depend on external binaries (VBMicrolensing, BAGLE). Those tests are marked and skipped unless the corresponding environment variables are set.
 
+Run `ruff check .` for style/linting.
+
+## Documentation
+
+The docs directory contains a Read the Docs compatible Sphinx project. Build it locally with:
+
+```bash
+make -C docs html
+```
+
 ## Contributing
 
 See `CONTRIBUTING.md`. The TL;DR: strict linting, fail-fast, no hidden defaults. Adapters must never fabricate physics values if the source is missing.
@@ -110,4 +112,3 @@ See `CITATION.cff`.
 ## Acknowledgements
 
 NASA • RGES_PIT • The Ohio State University
-

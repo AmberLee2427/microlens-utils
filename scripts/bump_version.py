@@ -33,7 +33,7 @@ VERSION_FILES = [
     "pyproject.toml",
     "microlens_utils/__init__.py",
     "CHANGELOG.md",
-    "documentation/source/conf.py",
+    "docs/conf.py",
 ]  # this list is not looped over directly; it is for reference
 
 def get_current_version():
@@ -136,8 +136,8 @@ def update_changelog(new_version, bump_type):
     print(f"Added {new_version} entry to CHANGELOG.md")
 
 def update_conf_py(new_version):
-    """Update version in documentation/conf.py."""
-    conf_py = Path("documentation/source/conf.py")
+    """Update version in docs/conf.py."""
+    conf_py = Path("docs/conf.py")
     if not conf_py.exists():
         print("Warning: documentation/source/conf.py not found, skipping")
         return
