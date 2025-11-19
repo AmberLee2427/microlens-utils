@@ -1,0 +1,33 @@
+[build-system]
+requires = ["hatchling>=1.10,<3"]
+build-backend = "hatchling.build"
+
+[project]
+name = "microlens-utils"
+version = "0.0.0"
+description = "Utility functions and tools for microlensing analysis."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Amber Malpas", email = "malpas.1@osu.edu" }
+]
+
+dependencies = [
+    "astropy",
+    "numpy",
+    "astroquery",
+    "pandas",
+]
+
+[project.optional-dependencies]
+dev = [
+    "VBMicrolensing",
+    "MulensModel",
+    "BAGLE",
+    "joblib",
+]
+
+[project.urls]
+Homepage = "https://example.org/microlens-utils"
+Repository = "https://example.org/microlens-utils.git"
