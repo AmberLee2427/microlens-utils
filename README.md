@@ -19,6 +19,7 @@ Every transformation is deterministic, frame-aware, and fail-fast—if a paramet
 
 ## Features
 
+- **Canonical BAGLE-based model** – the core `BaseModel` mirrors BAGLE’s PSPL/PSBL parameterisation (t0, u0_amp, tE, sep, q, πE, θE, μ, etc.) so we can reuse their rigorously derived frame math.
 - **Adapters with a common contract** – each supported package subclasses `BaseAdapter` and knows how to `load()` its native files into a `BaseModel` and `dump()` back out.
 - **Frame-aware accessors** – model properties (e.g., `mu_rel`, `source_traj`, `centroid`) require explicit `coords`, `projection`, `rest`, and `origin` arguments whenever the frame matters. No implicit defaults.
 - **Rotation + projection utilities** – reusable NE↔lens and sky↔observer transforms that match the VBMicrolensing/GULLS/BAGLE conventions.
@@ -57,6 +58,9 @@ sky_track = bagle_model.source_traj(
     rest="source",
     origin="lens1@t0",
 )
+
+# adapter handles are stored for reuse
+print(conv.bagle.params["t0"])
 ```
 
 See `docs/DESIGN.md` for deeper detail on the types below.

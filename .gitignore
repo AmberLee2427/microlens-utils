@@ -1,0 +1,94 @@
+# Compiled Python files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual environments
+.env
+.env.*
+venv/
+ENV/
+env/
+env.bak/
+venv.bak/
+.venv/
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+pip-wheel-metadata/
+wheelhouse/
+
+# Installer / wheel logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage
+htmlcov/
+.tox/
+.nox/
+.pytest_cache/
+.coverage
+.coverage.*
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Profiling / caches
+.cache/
+.mypy_cache/
+.pyre/
+
+# Jupyter
+.ipynb_checkpoints
+
+# Django / Flask / common runtime files
+local_settings.py
+db.sqlite3
+db.sqlite3-journal
+media/
+instance/
+.webassets-cache
+celerybeat-schedule
+
+# Sphinx / docs
+docs/_build/
+site/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.code-workspace
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Misc
+*.log
+*.pot
+*.mo
+*.pyi
+*.pyc

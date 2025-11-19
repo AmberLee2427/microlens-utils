@@ -10,45 +10,42 @@ Version 0.0.0
 
 Version 0.1.0
 
-- [ ] Clearly defined `BaseModel` (how do we case this? lower? camel?) parameterization based on `MulensModel`
-- [ ] Write `BaseAdapter` class to ensure adapters inherit the same IO.
-- [ ] Projection utilities.
-- [ ] Tests to exercise projections and rotations using the BaseModel.
+- [x] Adopt BAGLE parameterisation for `BaseModel` (PSPL/PSBL inference, canonical fields).
+- [x] Refactor BAGLE `frame_convert.py` into smaller modules with numpydoc docstrings.
+- [x] Implement `TimeSeries` scaffolding (epochs + frame metadata).
+- [x] Flesh out `BaseAdapter` contract + projection utilities + rotation/projection tests.
 
 Version 0.2.0
 
-- [ ] Write a `BAGLE` adapter.
-- [ ] Test utilities on BAGLE simulations.
-- [ ] PyPI.
-- [ ] Release workflow.
+- [ ] BAGLE adapter (load/dump canonical model) with round-trip tests.
+- [ ] Converter handle cache providing attribute-style access (`conv.bagle`, `conv.gulls`, …).
+- [ ] Strict frame metadata validation on TimeSeries accessors.
+
+Version 0.3.0
+
+- [ ] GULLS photometry adapter; ensure consistency with BAGLE/VBM.
+- [ ] Reproduce the conversion notebook with BAGLE↔GULLS examples.
 
 Version 0.4.0
 
-- [ ] Write a photometry-only `Gulls` adapter.
-- [ ] Ensure consistency with `VBM` and `BAGLE`.
-- [ ] Create relevant unit tests.
+- [ ] GULLS astrometry adapter (after upstream astrometry is finalised).
+- [ ] TimeSeries-backed astrometric utilities (observer/origin aware).
 
 Version 0.5.0
 
-- [ ] Create astrometry tools for the `Gulls` adapter in conjuction with gulls astrometry development finalization.
+- [ ] pyLIMA adapter using shared BAGLE conversion helpers.
+- [ ] Reproduce `docs/example_compare_packages.ipynb` with BAGLE/pyLIMA.
 
 Version 0.6.0
 
-- [ ] CLI
-- [ ] CLI tests
+- [ ] MulensModel adapter (if still needed once pyLIMA exists).
+- [ ] Complete conversion unit tests across BAGLE/GULLS/pyLIMA/MulensModel/VBM.
 
 Version 0.7.0
 
-- [ ] Write a `MulensModel` adapter, if required
-- [ ] Ensure reproducability of the material inside `docs/example_compare_packages.ipynb`.
-- [ ] Produce complete conversion unit tests.
+- [ ] CLI thin wrapper + CLI tests.
+- [ ] Release workflow + PyPI publishing.
 
 Version 0.8.0
 
-- [ ] Write a `pyLIMA` adapter.
-- [ ] Ensure reproducability of the material inside `docs/example_compare_packages.ipynb`.
-- [ ] Produce complete conversion unit tests.
-
-Version 0.9.0
-
-- [ ] Tools or documentation to help create an adaptor for a new parameterization.
+- [ ] Adapter authoring guide & helper tooling (templates, docs).

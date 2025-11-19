@@ -1,4 +1,4 @@
-"""Input/output package interface and base parameterization adapters."""
+"""Base adapter contracts and helpers."""
 from __future__ import annotations
 
 from abc import ABC, abstractmethod
@@ -12,7 +12,7 @@ class AdapterError(RuntimeError):
 
 
 class BaseAdapter(ABC):
-    """Abstract contract all package adapters must implement."""
+    """Abstract contract describing how packages map to the canonical model."""
 
     package_name: ClassVar[str]
     supported_observers: ClassVar[tuple[str, ...]] = ()
@@ -60,30 +60,28 @@ class BaseAdapter(ABC):
     ) -> BaseModel:
         """Normalize raw params into a BaseModel."""
         normalized = cls._coerce_mapping(params)
-        meta = dict(normalized.get("meta", {}))
-        meta.setdefault("package", cls.package_name)
-        meta.setdefault("observer", observer)
-        if epochs is not None:
-            meta["epochs"] = epochs
         scalars = dict(normalized.get("scalars", {}))
-        if not scalars and "t0" in normalized:
-            scalars["t0"] = normalized["t0"]
-        frames = {
-            "native": FrameConfig(
+        meta = dict(normalized.get("meta", {}))
+        if epochs is not None:
+            meta.setdefault("epochs", epochs)
+        meta.setdefault("observer", observer)
+        meta.setdefault("package", cls.package_name)
+
+        frames_payload = dict(normalized.get("frames", {}))
+        if "native" not in frames_payload:
+            frames_payload["native"] = FrameConfig(
                 observer=observer,
                 origin=meta.get("origin"),
                 rest=meta.get("rest"),
                 coords=meta.get("coords"),
                 projection=meta.get("projection"),
             )
-        }
-        model = BaseModel(
+        return BaseModel(
             scalars=scalars,
             meta=meta,
             series=dict(normalized.get("series", {})),
-            frames=frames,
+            frames=frames_payload,
         )
-        return model
 
     @classmethod
     @abstractmethod
