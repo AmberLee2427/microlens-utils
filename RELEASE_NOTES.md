@@ -1,23 +1,11 @@
-# Gulls v0.1.0 Release Notes
+# Gulls v0.1.1 Release Notes
 
 **Release Date:** 2025-11-19
 
-## Minor Release
+## Patch Release
 
 
-### Added
-- Adopted BAGLE-style canonical scalars in `BaseModel` with PSPL/PSBL inference helpers.
-- Introduced the `TimeSeries` container and validation plus new projection utilities/tests.
-- Ported BAGLE `frame_convert.py` math into `microlens_utils.frames.bagle` with numpydoc docs.
-
-### Changed  
-- Strengthened the base adapter contract to normalize metadata/frames consistently.
-
-### Fixed
-- N/A
-
-### Security
-- N/A
+feat: Enhance contributing guidelines, add linting script, and update documentation; refactor imports for consistency
 ## What's New
 
 This release includes the following changes:
