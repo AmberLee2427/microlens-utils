@@ -404,11 +404,12 @@ def main():
             return
         
         # Update files
-        update_pyproject_toml(new_version)
-        update_conf_py(new_version)
-        update_init_py(new_version)
-        update_changelog(new_version, args.bump_type)
-        
+        if args.bump_type != "release" and not args.revert and not args.dry_run:
+            update_pyproject_toml(new_version)
+            update_conf_py(new_version)
+            update_init_py(new_version)
+            update_changelog(new_version, args.bump_type)
+            
         # Only generate release notes when creating a release
         if args.bump_type == "release":
             update_release_notes(new_version)

@@ -81,8 +81,10 @@ def earth_projected_velocity(
     vel_arr = vel.xyz.T.to(u.km / u.s).value
     if vel_arr.ndim == 1:
         vel_arr = vel_arr[np.newaxis, :]
-    v_east = float(vel_arr @ east)
-    v_north = float(vel_arr @ north)
+    dot_east = np.atleast_1d(vel_arr @ east)
+    dot_north = np.atleast_1d(vel_arr @ north)
+    v_east = float(dot_east[0])
+    v_north = float(dot_north[0])
     return v_east, v_north
 
 

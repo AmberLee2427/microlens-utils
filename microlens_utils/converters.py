@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any, Dict, Mapping, Optional
+from typing import Any, Dict, Mapping, Optional, Tuple
 
 from microlens_utils.adapters.base import get_adapter
 from microlens_utils.models import BaseModel
@@ -23,6 +23,8 @@ class PackageHandle:
 class Converter:
     """Coordinates adapters with the canonical BaseModel."""
 
+    HandleKey = Tuple[str, Optional[str], Optional[str]]
+
     def __init__(
         self,
         model: BaseModel,
@@ -31,17 +33,44 @@ class Converter:
     ) -> None:
         self.model = model
         self.source_package = source_package
-        self._handles: Dict[str, PackageHandle] = {}
-        self._cache_handle(source_package, source_params)
+        self._handles: Dict[Converter.HandleKey, PackageHandle] = {}
+        self._cache_handle(
+            source_package,
+            source_params,
+            observer=model.meta.get("observer"),
+            origin=model.meta.get("origin"),
+        )
 
-    def _cache_handle(self, package: str, params: Mapping[str, Any]) -> PackageHandle:
+    @staticmethod
+    def _handle_key(
+        package: str,
+        observer: Optional[str],
+        origin: Optional[str],
+    ) -> "Converter.HandleKey":
+        return (package, observer, origin)
+
+    def _cache_handle(
+        self,
+        package: str,
+        params: Mapping[str, Any],
+        *,
+        observer: Optional[str],
+        origin: Optional[str],
+    ) -> PackageHandle:
         handle = PackageHandle(package=package, params=dict(params), model=self.model)
-        self._handles[package] = handle
+        key = self._handle_key(package, observer, origin)
+        self._handles[key] = handle
         return handle
 
-    def get_handle(self, package: str) -> Optional[PackageHandle]:
+    def get_handle(
+        self,
+        package: str,
+        *,
+        observer: Optional[str],
+        origin: Optional[str],
+    ) -> Optional[PackageHandle]:
         """Return the cached handle for a package if it exists."""
-        return self._handles.get(package)
+        return self._handles.get(self._handle_key(package, observer, origin))
 
     def to_package(
         self,
@@ -51,12 +80,12 @@ class Converter:
         origin: Optional[str] = None,
     ) -> PackageHandle:
         """Dump the canonical model into the requested package format."""
-        cached = self.get_handle(package)
+        cached = self.get_handle(package, observer=observer, origin=origin)
         if cached is not None:
             return cached
         adapter_cls = get_adapter(package)
         params = adapter_cls.dump(self.model, observer=observer, origin=origin)
-        return self._cache_handle(package, params)
+        return self._cache_handle(package, params, observer=observer, origin=origin)
 
     def dump(
         self,

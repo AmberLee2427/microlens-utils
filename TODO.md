@@ -15,11 +15,16 @@ Version 0.1.0
 - [x] Implement `TimeSeries` scaffolding (epochs + frame metadata).
 - [x] Flesh out `BaseAdapter` contract + projection utilities + rotation/projection tests.
 
+Version 0.1.1
+
+- [ ] Style checks with `Ruff`.
+
 Version 0.2.0
 
-- [ ] BAGLE adapter (load/dump canonical model) with round-trip tests.
+- [ ] BAGLE adapter (load/dump canonical model) with round-trip tests. Should be fairly trivial with a BAGLE base model.
 - [ ] Converter handle cache providing attribute-style access (`conv.bagle`, `conv.gulls`, …).
 - [ ] Strict frame metadata validation on TimeSeries accessors.
+- [ ] Usage example notebook (icorporated into docs build).
 
 Version 0.3.0
 
@@ -45,6 +50,7 @@ Version 0.7.0
 
 - [ ] CLI thin wrapper + CLI tests.
 - [ ] Release workflow + PyPI publishing.
+- [ ] Zenodo
 
 Version 0.8.0
 
