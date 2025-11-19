@@ -404,8 +404,10 @@ def main():
             return
         
         # Update files
-        update_gulls_cpp(new_version)
+        update_pyproject_toml(new_version)
         update_conf_py(new_version)
+        update_init_py(new_version)
+        update_changelog(new_version, args.bump_type)
         
         # Only generate release notes when creating a release
         if args.bump_type == "release":
@@ -415,7 +417,7 @@ def main():
                 print("You can now edit RELEASE_NOTES.md to customize the release notes")
                 return
             create_release_commit(new_version)
-        
+            
         print(f"\nVersion bump complete: {current_version} -> {new_version}")
         
     except Exception as e:
