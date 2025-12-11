@@ -25,6 +25,7 @@ version = release = _get_version()
 
 extensions = [
     "myst_parser",
+    "myst_nb",
     "sphinx.ext.autodoc",
     "sphinx.ext.napoleon",
     "sphinx.ext.autosectionlabel",
@@ -36,3 +37,4 @@ myst_enable_extensions = ["colon_fence", "deflist"]
 
 html_theme = "sphinx_rtd_theme"
 html_static_path = ["_static"]
+nb_execution_mode = "off"

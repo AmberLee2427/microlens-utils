@@ -26,10 +26,10 @@ conv = converter(
     observer="earth",
 )
 
-bagle_payload = conv.dump("bagle", observer="earth")
+bagle_handle = conv.bagle  # cached source payload
 gulls_handle = conv.to_package("gulls", observer="roman_l2")
 print("t0 =", gulls_handle.t0)
-print("native payload =", gulls_handle.params)
+print("native payload =", bagle_handle.params)
 ```
 
 ## CLI

@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Dict, Mapping, Optional, Tuple
 
+from microlens_utils import adapters as _adapters  # noqa: F401  # ensure adapters register
 from microlens_utils.adapters.base import get_adapter
 from microlens_utils.models import BaseModel
 
@@ -35,6 +36,7 @@ class Converter:
         self.model = model
         self.source_package = source_package
         self._handles: Dict[Converter.HandleKey, PackageHandle] = {}
+        self._package_alias: Dict[str, PackageHandle] = {}
         self._cache_handle(
             source_package,
             source_params,
@@ -61,6 +63,7 @@ class Converter:
         handle = PackageHandle(package=package, params=dict(params), model=self.model)
         key = self._handle_key(package, observer, origin)
         self._handles[key] = handle
+        self._package_alias[package] = handle
         return handle
 
     def get_handle(
@@ -98,7 +101,10 @@ class Converter:
         """Return just the package-native payload."""
         return self.to_package(package, observer=observer, origin=origin).params
 
-    def __getattr__(self, name: str) -> Any:  # pragma: no cover - trivial proxy
+    def __getattr__(self, name: str) -> Any:
+        handle = self._package_alias.get(name)
+        if handle is not None:
+            return handle
         return getattr(self.model, name)
 
 

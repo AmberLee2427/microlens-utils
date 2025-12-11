@@ -21,7 +21,9 @@ Every transformation is deterministic, frame-aware, and fail-fast—if a paramet
 
 - **Canonical BAGLE-based model** – the core `BaseModel` mirrors BAGLE’s PSPL/PSBL parameterisation (t0, u0_amp, tE, sep, q, πE, θE, μ, etc.) so we can reuse their rigorously derived frame math.
 - **Adapters with a common contract** – each supported package subclasses `BaseAdapter` and knows how to `load()` its native files into a `BaseModel` and `dump()` back out.
+- **Package handle cache** – adapter outputs are available as `conv.<package>` handles (`conv.bagle`, `conv.gulls`, …) so you always know which payload produced a given conversion.
 - **Frame-aware accessors** – model properties (e.g., `mu_rel`, `source_traj`, `centroid`) require explicit `coords`, `projection`, `rest`, and `origin` arguments whenever the frame matters. No implicit defaults.
+- **Astropy quantities** – scalars (`t0`, `tE`, `piE`, `u0`, …) are exposed as `LensQuantity` objects so you can work in mas, deg, radians, or Einstein-radius units via `.mas`, `.deg`, `.rad`, `.er`.
 - **Rotation + projection utilities** – reusable NE↔lens and sky↔observer transforms that match the VBMicrolensing/GULLS/BAGLE conventions.
 - **Python-first API** – provide parameter dictionaries directly to `converter(...)`; adapters and frame transforms run strictly in Python (no mandatory file IO or CLI usage).
 - **Strict validation** – adapters enforce unit, frame, and metadata checks; missing values or inconsistent reference frames raise immediately.
@@ -52,6 +54,7 @@ conv = converter(
 )
 
 bagle_model = conv.to_package("bagle", observer="earth")
+bagle_payload = conv.bagle.params  # cached adapter handle
 sky_track = bagle_model.source_traj(
     coords="icrs",
     projection="geocentric",
@@ -59,8 +62,13 @@ sky_track = bagle_model.source_traj(
     origin="lens1@t0",
 )
 
-# adapter handles are stored for reuse
-print(conv.bagle.params["t0"])
+gulls_handle = conv.to_package("gulls", observer="roman_l2")
+assert conv.gulls is gulls_handle  # repeated calls reuse the cached handle
+
+piEE_geo = conv.bagle.piEE()
+piEE_helio_mas = conv.bagle.piEE(projection="heliocentric").mas
+print("piEE (Einstein radii) =", piEE_geo.er)
+print("piEE (mas, helio)    =", piEE_helio_mas)
 ```
 
 See `docs/DESIGN.md` for deeper detail on the types below.

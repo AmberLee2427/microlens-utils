@@ -1,4 +1,16 @@
 
+## [0.2.0] - 2025-11-20
+
+### Added
+- Implemented the BAGLE adapter with real load/dump logic plus regression tests to exercise canonical round-trips.
+- Introduced attribute-accessible package handles and caching inside `Converter` so repeated conversions reuse the same payloads.
+- Added a rendered usage notebook (`docs/examples.md` + `example_compare_packages.ipynb`) to the documentation build.
+
+### Changed
+- TimeSeries access now enforces explicit frame metadata and produces clear mismatch errors.
+- Documentation and README examples highlight package handles and the new converter behaviour.
+
+
 ## [0.1.1] - 2025-11-19
 
 feat: Enhance contributing guidelines, add linting script, and update documentation; refactor imports for consistency

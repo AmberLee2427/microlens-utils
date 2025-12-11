@@ -9,9 +9,9 @@ guidelines in a Read the Docs friendly format.
 
 guide
 DESIGN
+examples
 ```
 
 Additional resources:
 
-- The `docs/example_compare_packages.txt` notebook export compares adapter conventions.
 - `README.md` in the project root lists installation instructions and a short API primer.

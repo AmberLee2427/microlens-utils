@@ -1,32 +1,25 @@
-# Gulls v0.1.1 Release Notes
+# microlens-utils v0.2.0 Release Notes
 
-**Release Date:** 2025-11-19
+**Release Date:** 2025-11-20
 
-## Patch Release
+## Highlights
 
-
-feat: Enhance contributing guidelines, add linting script, and update documentation; refactor imports for consistency
-## What's New
-
-This release includes the following changes:
-
-## What's Included
-
-- **Source code**: Complete Gulls source with CMake build system
-- **Binaries**: Linux executables (GSL fallbacks - testing only)
-- **Documentation**: Built HTML documentation
-- **Smoke test plots**: Visual proof that the release works
+- BAGLE is now the first fully implemented adapter: `load()`/`dump()` convert real BAGLE payloads into the canonical `BaseModel`, cache the result, and serialize back out for downstream tools.
+- `Converter` caches adapter payloads per `(package, observer, origin)` and exposes them via attribute access (`conv.bagle`, `conv.gulls`, …), so you always know which dictionary produced a conversion.
+- `TimeSeries.get_series()` enforces explicit frame metadata (observer/origin/rest/coords/projection) and emits detailed errors whenever the request does not match the stored series.
+- The documentation build now renders the BAGLE comparison notebook through `myst-nb`, giving readers a full worked example without running the code.
 
 ## Getting Started
 
-1. **Install Gulls** - See the [Installation Guide](https://gulls.readthedocs.io/en/latest/install_gulls.html)
-2. **Validate your inputs** - Use `python scripts/validate_inputs.py your_file.prm`
-3. **Run simulations** - See the [Running Guide](https://gulls.readthedocs.io/en/latest/run_simulations.html)
+1. `pip install -e .[dev,docs]` (or add `adapters` if you have the external packages available).
+2. Use `microlens_utils.converter(...)` with `source="bagle"` to ingest BAGLE payloads – the new adapter is the canonical model, so conversions require no hacks.
+3. Access cached payloads through attribute handles (`conv.bagle.params`, `conv.gulls.params`) to keep track of how each package was produced.
+4. Visit the updated docs (`docs/examples.md`) for the rendered notebook walkthrough.
 
-## Full Changelog
+## Changelog
 
-See [CHANGELOG.md](CHANGELOG.md) for the complete list of changes.
+See [CHANGELOG.md](CHANGELOG.md#020---2025-11-20) for the complete list of commits in this release.
 
 ---
 
-**Previous Release:** v0.1.0
+**Previous Release:** v0.1.1
